@@ -1,0 +1,15 @@
+from flask import Flask
+from flask_migrate import Migrate
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///superheroes.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+from models import db
+db.init_app(app)
+migrate = Migrate(app, db)
+
+import routes
+
+if __name__ == '__main__':
+    app.run(debug=True)
